@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AutenticacaoService } from '../autenticacao/autenticacao.service';
+import { TokenService } from '../autenticacao/token.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AutenticacaoService, private router: Router, private tokenService: TokenService) { 
+    if(this.tokenService.possuiToken())
+      this.router.navigate(['cadastra-compra']);
+  }
 
-  ngOnInit(): void {
+  login={usuario:"", senha: ""};
+
+  ngOnInit(): void {}
+
+  logar(){    
+    this.authService.autenticar(this.login.usuario,this.login.senha).subscribe(
+      () => {
+        this.router.navigate(['cadastra-compra']);
+      },
+      (error) => {
+        alert("Usuário ou senha invalidos");
+        console.log(error);
+      }
+    );
   }
 
 }

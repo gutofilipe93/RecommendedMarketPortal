@@ -1,15 +1,16 @@
 <div class="container">
-    <form action="">
+    <form (ngSubmit)="logar()">
         <div class="row">
             <div class="form-group col-md-3 offset-md-4">
                 <label for="lbUser">Usuário</label>
-                <input type="text" class="form-control" name="user" id="user">
+                <input type="text" [(ngModel)] = "login.usuario" class="form-control" name="user" id="user">
+                <app-mensagem mensagem="Usuário deve"></app-mensagem>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-3 offset-md-4">
                 <label for="lbPassword">Senha</label>
-                <input type="password" class="form-control" name="password" id="password">
+                <input type="password" [(ngModel)] = "login.senha" class="form-control" name="password" id="password">
             </div>
         </div>
         <br>
