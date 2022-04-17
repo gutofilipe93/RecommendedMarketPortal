@@ -9,10 +9,6 @@ import { TokenService } from 'src/app/autenticacao/token.service';
 })
 export class CadastraCompraComponent implements OnInit {
 
-  constructor(private tokenService: TokenService, private router: Router) { 
-    if(!this.tokenService.possuiToken())
-      this.router.navigate(['']);
-  }
 
   ngOnInit(): void {
   }
