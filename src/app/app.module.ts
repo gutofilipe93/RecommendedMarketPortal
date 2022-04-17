@@ -8,15 +8,16 @@ import { AppComponent } from './app.component';
 import { CadastraCompraModule } from './cadastra-compra/cadastra-compra/cadastra-compra.module';
 import { LoginModule } from './login/login.module';
 
+
 @NgModule({
   declarations: [
-    AppComponent    
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LoginModule,
-    HttpClientModule       
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

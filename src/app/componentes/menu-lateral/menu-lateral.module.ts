@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MensagemComponent } from './mensagem.component';
+import { MenuLateralComponent } from './menu-lateral.component';
+
+
 
 @NgModule({
   declarations: [
-    MensagemComponent
+    MenuLateralComponent
   ],
   imports: [
     CommonModule
   ],
-  exports:[MensagemComponent]
+  exports: [MenuLateralComponent]
 })
-export class MensagemModule { }
+export class MenuLateralModule { }

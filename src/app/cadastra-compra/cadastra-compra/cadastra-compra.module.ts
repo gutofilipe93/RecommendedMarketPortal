@@ -1,6 +1,10 @@
+import { MenuLateralModule } from 'src/app/componentes/menu-lateral/menu-lateral.module';
+
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CadastraCompraComponent } from './cadastra-compra.component';
+
 
 
 
@@ -9,7 +13,8 @@ import { CadastraCompraComponent } from './cadastra-compra.component';
     CadastraCompraComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MenuLateralModule
   ],
   exports:[CadastraCompraComponent]
 })
