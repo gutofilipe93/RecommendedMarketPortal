@@ -10,7 +10,7 @@ import { TokenService } from '../autenticacao/token.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AutenticacaoService, private router: Router, private tokenService: TokenService) { 
+  constructor(private authService: AutenticacaoService, private router: Router, private tokenService: TokenService) {
     if(this.tokenService.possuiToken())
       this.router.navigate(['cadastra-compra']);
   }
@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  logar(){    
+  logar(){
+    console.log(this.login)
     this.authService.autenticar(this.login.usuario,this.login.senha).subscribe(
       () => {
         this.router.navigate(['cadastra-compra']);

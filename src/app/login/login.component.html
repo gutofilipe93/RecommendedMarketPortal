@@ -1,21 +1,37 @@
-<div class="container">
-    <form (ngSubmit)="logar()">
-        <div class="row">
-            <div class="form-group col-md-3 offset-md-4">
-                <label for="lbUser">Usuário</label>
-                <input type="text" [(ngModel)] = "login.usuario" class="form-control" name="user" id="user">
-                <app-mensagem mensagem="Usuário deve"></app-mensagem>
+<div class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <p>Mercado Recomendado</p>
+    </div>
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Informe o usuário e senha</p>
+
+        <form (ngSubmit)="logar()">
+          <div class="input-group mb-3">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Email" [(ngModel)] = "login.usuario">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-3 offset-md-4">
-                <label for="lbPassword">Senha</label>
-                <input type="password" [(ngModel)] = "login.senha" class="form-control" name="password" id="password">
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" name="senha" id="senha" class="form-control" placeholder="Password" [(ngModel)] = "login.senha">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
             </div>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary btn-block col-md-3 offset-md-4">Login</button>
-        
-    </form>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
