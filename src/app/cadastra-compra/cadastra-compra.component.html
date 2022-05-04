@@ -1,0 +1,94 @@
+<app-menu-lateral></app-menu-lateral>
+<div class="content-wrapper">
+
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Cadastrar as compras</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Cadastro de compras</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="content">
+    <div class="container-fluid">
+      <form #formCadastraCompra="ngForm">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Informações sobre a compra</h3>
+          </div>
+          <div class="card-body row">
+            <div class="col-md-3 form-group">
+              <label for="lbNomeProduto">Mercado*</label>
+              <input type="text" class="form-control" [(ngModel)] = "mercado" id="nomeMercado" #nomeMercado="ngModel" name="nomeMercado" required>
+              <app-mensagem *ngIf="nomeMercado.invalid && nomeMercado.touched" mensagem="Mercado é obrigatório!" ></app-mensagem>              
+            </div>
+
+            <div class="col-md-2 form-group">
+              <label for="lbPrecoProduto">Data da compra*</label>
+              <input matInput mask="d0/M0/0000" [(ngModel)] = "dataCompra" id="txtDadaCompra" name="txtDadaCompra" #txtDadaCompra="ngModel" required  class="form-control" placeholder="Ex. 00/00/0000" value="">
+              <app-mensagem *ngIf="txtDadaCompra.invalid && txtDadaCompra.touched" mensagem="Data da compra é obrigatória" ></app-mensagem>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Informações sobre os produtos</h3>
+          </div>
+
+          <div class="card-body row">
+            <div class="col-md-3 form-group">
+              <label for="lbNomeProduto">Produto*</label>
+              <input #produtoNome type="text" class="form-control" [(ngModel)]= "produtoDto.nome" #nomeProduto="ngModel" id="nomeProduto" name="nomeProduto" required>
+              <app-mensagem *ngIf="nomeProduto.invalid && nomeProduto.touched" mensagem="Nome do produto é obrigatorio"></app-mensagem>
+            </div>
+
+            <div class="col-md-2 form-group">
+
+              <label for="lbPrecoProduto">Preço*</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">R$</span>
+                </div>
+                <input type="number" class="form-control" id="precoProduto" min="0" name="precoProduto" required [(ngModel)] ="produtoDto.preco" #precoProduto="ngModel">  
+              </div>              
+              <app-mensagem *ngIf="precoProduto.invalid && precoProduto.touched " mensagem="Preço é obrigatorio"></app-mensagem>              
+              <app-mensagem *ngIf="produtoDto.preco <= 0 && precoProduto.touched " mensagem="Preço deve ser maior que zero"></app-mensagem>              
+            </div>
+
+            <div class="col-md-3 form-group">
+              <label>Nome de pesquisa</label>
+              <select class="form-control select2" required [(ngModel)] = "produtoDto.nomePesquisa" 
+                      #nomeProdutoSelecionado="ngModel" name="nomeProdutoSelecionado" id="nomeProdutoSelecionado"
+                style="width: 100%;">
+                <option *ngFor="let nomePesquisavel of nomesPesquisaveis$ | async" [value]="nomePesquisavel" >{{nomePesquisavel}}</option>
+              </select>
+              <app-mensagem *ngIf="nomeProdutoSelecionado.invalid && nomeProdutoSelecionado.touched" mensagem="Nome de Pesquisa é obrigatorio"></app-mensagem> 
+            </div>
+
+            <div class="col-md-2 form-check" style="margin-left: 12px;">
+              <br>
+              <br>
+              <input type="checkbox" class="form-check-input" id="teveDesconto" [(ngModel)] ="produtoDto.temOferta" name="teveDesconto">
+              <label class="form-check-label" for="lbTeveDesconto">Teve Desconto</label>
+            </div>
+
+            <div class="col-md-2 form-group">
+              <button type="submit" (click)="adicionarCompraNaLista(formCadastraCompra)" class="btn btn-primary">Adicionar produto</button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

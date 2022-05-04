@@ -1,16 +1,16 @@
-
-<body class="sidebar-mini sidebar-collapse-auto">
+<!-- sidebar-collapse -->
+<div class="sidebar-mini" style="height: auto;">
   <div class="wrapper">
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4" style="height: nome;">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="" class="brand-link">
         <span class="brand-text font-weight-light">Mercado recomendado</span>
       </a>
 
       <!-- Sidebar -->
-      <div class="sidebar">
+      <div class="sidebar" style="padding-bottom: 259%;">
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -24,9 +24,19 @@
                 </p>
               </a>
             </li>
+
+            <li class="nav-item">
+              <a (click)="logout()" style="cursor: pointer;" class="nav-link">
+                <i class="nav-icon fas fa-trash"></i>
+                <p>
+                  Logout
+                </p>
+              </a>
+            </li>
+
           </ul>
-        </nav>
+        </nav>        
       </div>
     </aside>
   </div>
-</body>
+</div>

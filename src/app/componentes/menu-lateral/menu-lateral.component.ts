@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TokenService } from 'src/app/autenticacao/token.service';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuLateralComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tokenService: TokenService,private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    this.tokenService.excluirToken();
+    this.router.navigate(['']);
   }
 
 }

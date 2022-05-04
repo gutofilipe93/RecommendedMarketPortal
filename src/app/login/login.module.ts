@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MensagemModule } from '../componentes/mensagem/mensagem.module';
 import { Router, RouterModule } from '@angular/router';
 
-import { CadastraCompraModule } from '../cadastra-compra/cadastra-compra/cadastra-compra.module';
+import { CadastraCompraModule } from '../cadastra-compra/cadastra-compra.module';
 
 
 

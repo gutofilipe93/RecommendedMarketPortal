@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { Observable, tap } from 'rxjs';
-import { Autenticacao } from './autenticacao';
+import { environment } from 'src/environments/environment';
 
+const API = environment.apiURL;
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AutenticacaoService {
   constructor(private httpClient : HttpClient, private tokenService: TokenService) { }
 
   autenticar(usuario: string, senha: string): Observable<any>{
-    return this.httpClient.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDQ2SuHaluD0m2m-HzILWqEBTE_LPCf6Tc",
+    return this.httpClient.post(`${API}/api/token`,
     {
       email: usuario, 
       password: senha
@@ -23,6 +24,7 @@ export class AutenticacaoService {
       .pipe(
         tap((res) => {
           const authToken = res as any
+          console.log(authToken);
           this.tokenService.salvarToken(authToken?.idToken);
         })
       );
