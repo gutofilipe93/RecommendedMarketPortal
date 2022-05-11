@@ -23,11 +23,29 @@ export class AutenticacaoService {
       )
       .pipe(
         tap((res) => {
-          const authToken = res as any
-          console.log(authToken);
+          const authToken = res as any          
           this.tokenService.salvarToken(authToken?.idToken);
+          this.tokenService.salvarRefreshToken(authToken?.refreshToken);
         })
-      );
-    
+      );    
+  }
+
+  refreshToken(): Observable<any>{    
+    let refreshToken = this.tokenService.retornaRefreshToken();
+    return this.httpClient.post(`${API}/api/token/reflesh`,
+    {
+      refreshToken: refreshToken,       
+    },
+    { observe: 'body' }
+      )
+      .pipe(
+        tap((res) => {
+          const authToken = res as any  
+          console.log(authToken);
+          this.tokenService.excluirToken();
+          this.tokenService.salvarToken(authToken?.idToken);
+          this.tokenService.salvarRefreshToken(authToken?.refreshToken);
+        })
+      );    
   }
 }

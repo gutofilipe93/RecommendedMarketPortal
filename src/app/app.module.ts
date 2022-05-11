@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AutenticacaoInterceptor } from './autenticacao/autenticacao.interceptor';
 import { LoginModule } from './login/login.module';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
+import { AuthGuard } from './guard/auth-guard.service';
 
 
 @NgModule({
@@ -22,10 +23,11 @@ import { AutoFocusDirective } from './directives/auto-focus.directive';
     HttpClientModule    
   ],
   providers:[
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AutenticacaoInterceptor,
-      multi: true
+      multi: true,      
     }],
   bootstrap: [AppComponent]
 })

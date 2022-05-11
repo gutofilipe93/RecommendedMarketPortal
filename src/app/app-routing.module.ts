@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CadastraCompraComponent } from './cadastra-compra/cadastra-compra.component';
+import { AuthGuard } from './guard/auth-guard.service';
 import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
@@ -10,7 +11,8 @@ export const routes: Routes = [
   },
   {
     path: 'cadastra-compra',            
-    component: CadastraCompraComponent
+    component: CadastraCompraComponent,
+    canActivate: [AuthGuard]
   },
   ];
 

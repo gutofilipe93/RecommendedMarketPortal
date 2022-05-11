@@ -19,15 +19,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  logar(){
-    console.log(this.login)
+  logar(){    
     this.authService.autenticar(this.login.usuario,this.login.senha).subscribe(
       () => {
         this.router.navigate(['cadastra-compra']);
       },
       (error) => {
-        alert("Usuário ou senha invalidos");
-        console.log(error);
+        alert("Usuário ou senha invalidos");        
       }
     );
   }

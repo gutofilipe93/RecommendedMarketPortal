@@ -29,17 +29,19 @@
             <div class="col-md-3 form-group">
               <label for="lbNomeProduto">Mercado*</label>
               <input type="text" class="form-control" [(ngModel)] = "mercado" id="nomeMercado" #nomeMercado="ngModel" name="nomeMercado" required>
-              <app-mensagem *ngIf="nomeMercado.invalid && nomeMercado.touched" mensagem="Mercado é obrigatório!" ></app-mensagem>              
+              <app-mensagem *ngIf="(nomeMercado.invalid && nomeMercado.touched || flagValidaFormulario)" mensagem="Mercado é obrigatório!" ></app-mensagem>              
             </div>
 
             <div class="col-md-2 form-group">
               <label for="lbPrecoProduto">Data da compra*</label>
               <input matInput mask="d0/M0/0000" [(ngModel)] = "dataCompra" id="txtDadaCompra" name="txtDadaCompra" #txtDadaCompra="ngModel" required  class="form-control" placeholder="Ex. 00/00/0000" value="">
-              <app-mensagem *ngIf="txtDadaCompra.invalid && txtDadaCompra.touched" mensagem="Data da compra é obrigatória" ></app-mensagem>
+              <app-mensagem *ngIf="(txtDadaCompra.invalid && txtDadaCompra.touched || flagValidaFormulario)" mensagem="Data da compra é obrigatória" ></app-mensagem>
             </div>
           </div>
         </div>
+      </form>
 
+      <form #formProduto="ngForm">
         <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">Informações sobre os produtos</h3>
@@ -49,7 +51,7 @@
             <div class="col-md-3 form-group">
               <label for="lbNomeProduto">Produto*</label>
               <input #produtoNome type="text" class="form-control" [(ngModel)]= "produtoDto.nome" #nomeProduto="ngModel" id="nomeProduto" name="nomeProduto" required>
-              <app-mensagem *ngIf="nomeProduto.invalid && nomeProduto.touched" mensagem="Nome do produto é obrigatorio"></app-mensagem>
+              <app-mensagem *ngIf="(nomeProduto.invalid && nomeProduto.touched && flagValidaFormulario)" mensagem="Nome do produto é obrigatorio"></app-mensagem>
             </div>
 
             <div class="col-md-2 form-group">
@@ -61,8 +63,8 @@
                 </div>
                 <input type="number" class="form-control" id="precoProduto" min="0" name="precoProduto" required [(ngModel)] ="produtoDto.preco" #precoProduto="ngModel">  
               </div>              
-              <app-mensagem *ngIf="precoProduto.invalid && precoProduto.touched " mensagem="Preço é obrigatorio"></app-mensagem>              
-              <app-mensagem *ngIf="produtoDto.preco <= 0 && precoProduto.touched " mensagem="Preço deve ser maior que zero"></app-mensagem>              
+              <app-mensagem *ngIf="(precoProduto.invalid && precoProduto.touched && flagValidaFormulario) " mensagem="Preço é obrigatorio"></app-mensagem>              
+              <app-mensagem *ngIf="(produtoDto.preco <= 0 && precoProduto.touched && flagValidaFormulario)" mensagem="Preço deve ser maior que zero"></app-mensagem>              
             </div>
 
             <div class="col-md-3 form-group">
@@ -72,23 +74,71 @@
                 style="width: 100%;">
                 <option *ngFor="let nomePesquisavel of nomesPesquisaveis$ | async" [value]="nomePesquisavel" >{{nomePesquisavel}}</option>
               </select>
-              <app-mensagem *ngIf="nomeProdutoSelecionado.invalid && nomeProdutoSelecionado.touched" mensagem="Nome de Pesquisa é obrigatorio"></app-mensagem> 
+              <app-mensagem *ngIf="(nomeProdutoSelecionado.invalid && nomeProdutoSelecionado.touched && flagValidaFormulario)" mensagem="Nome de Pesquisa é obrigatorio"></app-mensagem> 
             </div>
 
             <div class="col-md-2 form-check" style="margin-left: 12px;">
               <br>
               <br>
-              <input type="checkbox" class="form-check-input" id="teveDesconto" [(ngModel)] ="produtoDto.temOferta" name="teveDesconto">
+              <input type="checkbox" class="form-check-input" id="teveDesconto" [(ngModel)] ="produtoDto.flagTemOferta" name="teveDesconto">
               <label class="form-check-label" for="lbTeveDesconto">Teve Desconto</label>
             </div>
 
             <div class="col-md-2 form-group">
-              <button type="submit" (click)="adicionarCompraNaLista(formCadastraCompra)" class="btn btn-primary">Adicionar produto</button>
+              <button type="submit" (click)="adicionarCompraNaLista(formCadastraCompra,formProduto)" class="btn btn-primary">Adicionar na lista</button>
             </div>
 
           </div>
         </div>
       </form>
+
+      <div class="row" *ngIf="produtosDtos.length > 0">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Produtos adicionados</h3>
+
+              <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>            
+            <div class="card-body table-responsive p-0" style="height: 300px;">
+              <table class="table table-head-fixed text-nowrap">
+                <thead>
+                  <tr>
+                    <th>Produto</th>
+                    <th>Preço</th>
+                    <th>Nome de pesquisa</th>
+                    <th>Teve Desconto</th>                    
+                  </tr>
+                </thead>
+                <tbody *ngFor="let produtoAdicionado of produtosDtos">
+                  <tr>
+                    <td>{{produtoAdicionado.nome}}</td>
+                    <td>{{produtoAdicionado.preco}}</td>
+                    <td>{{produtoAdicionado.nomePesquisa}}</td>
+                    <td>{{produtoAdicionado.flagTemOferta}}</td>                    
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <div class="col-md-2 form-group">
+        <button *ngIf="produtosDtos.length > 0" type="submit" (click)="enviarCompraParaApi(formCadastraCompra,formProduto)" class="btn btn-primary">Salvar compra</button>
+      </div>
+
     </div>
   </section>
 </div>

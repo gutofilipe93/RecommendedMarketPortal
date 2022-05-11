@@ -22,6 +22,6 @@ export class AutenticacaoInterceptor implements HttpInterceptor {
       request = request.clone({headers});
     }
     
-    return next.handle(request);
+    return next.handle(request); 
   }
 }
