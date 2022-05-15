@@ -41,7 +41,7 @@ export class CadastraCompraComponent implements OnInit {
     this.produtoDto.dataCompra = this.formatarData(this.dataCompra ?? "");
     this.produtoDto.mercado = this.mercado;
     this.produtoDto.cpf = "37121442884";
-    this.produtoDto.temOferta = this.flagValidaFormulario ? 1 : 0;
+    this.produtoDto.temOferta = this.produtoDto.flagTemOferta ? 1 : 0;
     this.produtosDtos.push(this.produtoDto);    
     this.searchElement.nativeElement.focus();        
     this.produtoDto = this.NewProdutoDto();    
