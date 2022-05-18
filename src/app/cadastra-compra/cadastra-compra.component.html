@@ -46,7 +46,7 @@
           <div class="card-header">
             <h3 class="card-title">Informações sobre os produtos</h3>
           </div>
-
+          
           <div class="card-body row">
             <div class="col-md-3 form-group">
               <label for="lbNomeProduto">Produto*</label>
@@ -71,11 +71,12 @@
               <label>Nome de pesquisa</label>
               <select class="form-control select2" required [(ngModel)] = "produtoDto.nomePesquisa" 
                       #nomeProdutoSelecionado="ngModel" name="nomeProdutoSelecionado" id="nomeProdutoSelecionado"
-                style="width: 100%;">
-                <option *ngFor="let nomePesquisavel of nomesPesquisaveis$ | async" [value]="nomePesquisavel" >{{nomePesquisavel}}</option>
+                style="width: 100%;">                
+                <option *ngFor="let nomePesquisavel of nomesPesquisaveis$ | async" [value]="nomePesquisavel" >{{nomePesquisavel}}</option>                
               </select>
               <app-mensagem *ngIf="(nomeProdutoSelecionado.invalid && nomeProdutoSelecionado.touched && flagValidaFormulario)" mensagem="Nome de Pesquisa é obrigatorio"></app-mensagem> 
             </div>
+
 
             <div class="col-md-2 form-check" style="margin-left: 12px;">
               <br>
@@ -118,6 +119,7 @@
                     <th>Preço</th>
                     <th>Nome de pesquisa</th>
                     <th>Teve Desconto</th>                    
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let produtoAdicionado of produtosDtos">
@@ -125,7 +127,8 @@
                     <td>{{produtoAdicionado.nome}}</td>
                     <td>{{produtoAdicionado.preco}}</td>
                     <td>{{produtoAdicionado.nomePesquisa}}</td>
-                    <td>{{produtoAdicionado.flagTemOferta}}</td>                    
+                    <td>{{produtoAdicionado.flagTemOferta}}</td>   
+                    <td><button style="border-color: transparent;background-color: transparent;" (click)="exclirProdutoDaLista(produtoAdicionado)"><i class="fa fa-trash"></i></button></td>                 
                   </tr>
                 </tbody>
               </table>

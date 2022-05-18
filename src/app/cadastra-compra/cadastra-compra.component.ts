@@ -1,12 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TokenService } from 'src/app/autenticacao/token.service';
 import Swal from 'sweetalert2';
 import { AutenticacaoService } from '../autenticacao/autenticacao.service';
 import { CadastraCompraService } from './cadastra-compra.service';
 import { ProdutoDto, ProdutosDtos } from './produto-dto';
+
 
 @Component({
   selector: 'app-cadastra-compra',
@@ -89,5 +88,14 @@ export class CadastraCompraComponent implements OnInit {
     var teste = JSON.stringify(this.produtosDtos);
     console.log(teste)
   }
+
+  exclirProdutoDaLista(produtoDto: ProdutoDto){
+    let index = this.produtosDtos.indexOf(produtoDto);
+    if (index > -1) {
+      this.produtosDtos.splice(index, 1); // 2nd parameter means remove one item only
+    }
+  }
+
+  public filteredVariables = this.produtosDtos.slice();
 
 }
