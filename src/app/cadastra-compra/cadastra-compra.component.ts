@@ -22,17 +22,24 @@ export class CadastraCompraComponent implements OnInit {
   produtosDtos: ProdutosDtos = [];
   produtoDto = this.NewProdutoDto();
   flagValidaFormulario = false;
+  selectedValue = "";
 
+  public variables = ['One','Two','County', 'Three', 'Zebra', 'XiOn'];  
 
   nomesPesquisaveis$!: Observable<Array<string>>;
-
+  public filteredList2: string[] = [];
   ngOnInit(): void {
-    this.nomesPesquisaveis$ = this.cadastroCompraService.buscarNomesPesquisaveis();
+    this.nomesPesquisaveis$ = this.cadastroCompraService.buscarNomesPesquisaveis();  
+    this.nomesPesquisaveis$.subscribe((x) => {
+      this.filteredList2 = x;
+    })
+    
   }
 
-  adicionarCompraNaLista(formCadastraCompra: NgForm, formProduto: NgForm) {
+  adicionarCompraNaLista(formCadastraCompra: NgForm, formProduto: NgForm) {    
     this.flagValidaFormulario = false;
-    if (formCadastraCompra.invalid || formProduto.invalid){
+  
+    if (formCadastraCompra.invalid || formProduto.invalid || !this.produtoDto.nomePesquisa){
       this.flagValidaFormulario = true;
       return;
     }

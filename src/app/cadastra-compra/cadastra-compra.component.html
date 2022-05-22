@@ -27,15 +27,19 @@
           </div>
           <div class="card-body row">
             <div class="col-md-3 form-group">
-              <label for="lbNomeProduto">Mercado*</label>
-              <input type="text" class="form-control" [(ngModel)] = "mercado" id="nomeMercado" #nomeMercado="ngModel" name="nomeMercado" required>
-              <app-mensagem *ngIf="(nomeMercado.invalid && nomeMercado.touched || flagValidaFormulario)" mensagem="Mercado é obrigatório!" ></app-mensagem>              
+              <label for="lbMercado">Mercado*</label>
+              <input type="text" class="form-control" [(ngModel)]="mercado" id="nomeMercado" #nomeMercado="ngModel"
+                name="nomeMercado" required>
+              <app-mensagem *ngIf="(nomeMercado.invalid && nomeMercado.touched || flagValidaFormulario)"
+                mensagem="Mercado é obrigatório!"></app-mensagem>
             </div>
 
             <div class="col-md-2 form-group">
               <label for="lbPrecoProduto">Data da compra*</label>
-              <input matInput mask="d0/M0/0000" [(ngModel)] = "dataCompra" id="txtDadaCompra" name="txtDadaCompra" #txtDadaCompra="ngModel" required  class="form-control" placeholder="Ex. 00/00/0000" value="">
-              <app-mensagem *ngIf="(txtDadaCompra.invalid && txtDadaCompra.touched || flagValidaFormulario)" mensagem="Data da compra é obrigatória" ></app-mensagem>
+              <input matInput mask="d0/M0/0000" [(ngModel)]="dataCompra" id="txtDadaCompra" name="txtDadaCompra"
+                #txtDadaCompra="ngModel" required class="form-control" placeholder="Ex. 00/00/0000" value="">
+              <app-mensagem *ngIf="(txtDadaCompra.invalid && txtDadaCompra.touched || flagValidaFormulario)"
+                mensagem="Data da compra é obrigatória"></app-mensagem>
             </div>
           </div>
         </div>
@@ -46,12 +50,14 @@
           <div class="card-header">
             <h3 class="card-title">Informações sobre os produtos</h3>
           </div>
-          
+
           <div class="card-body row">
             <div class="col-md-3 form-group">
               <label for="lbNomeProduto">Produto*</label>
-              <input #produtoNome type="text" class="form-control" [(ngModel)]= "produtoDto.nome" #nomeProduto="ngModel" id="nomeProduto" name="nomeProduto" required>
-              <app-mensagem *ngIf="(nomeProduto.invalid && nomeProduto.touched && flagValidaFormulario)" mensagem="Nome do produto é obrigatorio"></app-mensagem>
+              <input #produtoNome type="text" class="form-control" [(ngModel)]="produtoDto.nome" #nomeProduto="ngModel"
+                id="nomeProduto" name="nomeProduto" required>
+              <app-mensagem *ngIf="((nomeProduto.invalid && nomeProduto.touched) || flagValidaFormulario)"
+                mensagem="Nome do produto é obrigatorio"></app-mensagem>
             </div>
 
             <div class="col-md-2 form-group">
@@ -61,32 +67,42 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">R$</span>
                 </div>
-                <input type="number" class="form-control" id="precoProduto" min="0" name="precoProduto" required [(ngModel)] ="produtoDto.preco" #precoProduto="ngModel">  
-              </div>              
-              <app-mensagem *ngIf="(precoProduto.invalid && precoProduto.touched && flagValidaFormulario) " mensagem="Preço é obrigatorio"></app-mensagem>              
-              <app-mensagem *ngIf="(produtoDto.preco <= 0 && precoProduto.touched && flagValidaFormulario)" mensagem="Preço deve ser maior que zero"></app-mensagem>              
+                <input type="number" class="form-control" id="precoProduto" min="0" name="precoProduto" required
+                  [(ngModel)]="produtoDto.preco" #precoProduto="ngModel">
+              </div>
+              <app-mensagem *ngIf="((precoProduto.invalid && precoProduto.touched) || flagValidaFormulario) "
+                mensagem="Preço é obrigatorio"></app-mensagem>
+              <app-mensagem *ngIf="((produtoDto.preco <= 0 && precoProduto.touched) || flagValidaFormulario)"
+                mensagem="Preço deve ser maior que zero"></app-mensagem>
             </div>
 
-            <div class="col-md-3 form-group">
-              <label>Nome de pesquisa</label>
-              <select class="form-control select2" required [(ngModel)] = "produtoDto.nomePesquisa" 
-                      #nomeProdutoSelecionado="ngModel" name="nomeProdutoSelecionado" id="nomeProdutoSelecionado"
-                style="width: 100%;">                
-                <option *ngFor="let nomePesquisavel of nomesPesquisaveis$ | async" [value]="nomePesquisavel" >{{nomePesquisavel}}</option>                
-              </select>
-              <app-mensagem *ngIf="(nomeProdutoSelecionado.invalid && nomeProdutoSelecionado.touched && flagValidaFormulario)" mensagem="Nome de Pesquisa é obrigatorio"></app-mensagem> 
+            <div class="col-md-2" style="margin-top:20px ; margin-left:13px">
+              <mat-form-field>
+                <mat-select [(ngModel)] ="produtoDto.nomePesquisa" name="nomeProdutoSelecionado" id="nomeProdutoSelecionado"  #nomeProdutoSelecionado="ngModel" [disableOptionCentering]="true" #select1 placeholder="Nome de pesquisa">
+                  <mat-select-filter  [array]="nomesPesquisaveis$ | async" (filteredReturn)="filteredList2 =$event"></mat-select-filter>
+                  <mat-option *ngFor="let item of filteredList2" [value]="item">
+                    {{item}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <app-mensagem
+                *ngIf="((!produtoDto.nomePesquisa && nomeProdutoSelecionado.touched) || flagValidaFormulario)"
+                mensagem="Nome de Pesquisa é obrigatorio"></app-mensagem>           
             </div>
 
 
-            <div class="col-md-2 form-check" style="margin-left: 12px;">
+
+            <div class="col-md-2 form-check" style="margin-left: -28px;">
               <br>
               <br>
-              <input type="checkbox" class="form-check-input" id="teveDesconto" [(ngModel)] ="produtoDto.flagTemOferta" name="teveDesconto">
+              <input type="checkbox" class="form-check-input" id="teveDesconto" [(ngModel)]="produtoDto.flagTemOferta"
+                name="teveDesconto">
               <label class="form-check-label" for="lbTeveDesconto">Teve Desconto</label>
             </div>
 
             <div class="col-md-2 form-group">
-              <button type="submit" (click)="adicionarCompraNaLista(formCadastraCompra,formProduto)" class="btn btn-primary">Adicionar na lista</button>
+              <button type="submit" (click)="adicionarCompraNaLista(formCadastraCompra,formProduto)"
+                class="btn btn-primary" style="margin-top:30px ; margin-left: -69px">Adicionar na lista</button>
             </div>
 
           </div>
@@ -110,7 +126,7 @@
                   </div>
                 </div>
               </div>
-            </div>            
+            </div>
             <div class="card-body table-responsive p-0" style="height: 300px;">
               <table class="table table-head-fixed text-nowrap">
                 <thead>
@@ -118,7 +134,7 @@
                     <th>Produto</th>
                     <th>Preço</th>
                     <th>Nome de pesquisa</th>
-                    <th>Teve Desconto</th>                    
+                    <th>Teve Desconto</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -127,8 +143,9 @@
                     <td>{{produtoAdicionado.nome}}</td>
                     <td>{{produtoAdicionado.preco}}</td>
                     <td>{{produtoAdicionado.nomePesquisa}}</td>
-                    <td>{{produtoAdicionado.flagTemOferta}}</td>   
-                    <td><button style="border-color: transparent;background-color: transparent;" (click)="exclirProdutoDaLista(produtoAdicionado)"><i class="fa fa-trash"></i></button></td>                 
+                    <td>{{produtoAdicionado.flagTemOferta}}</td>
+                    <td><button style="border-color: transparent;background-color: transparent;"
+                        (click)="exclirProdutoDaLista(produtoAdicionado)"><i class="fa fa-trash"></i></button></td>
                   </tr>
                 </tbody>
               </table>
@@ -139,7 +156,8 @@
         </div>
       </div>
       <div class="col-md-2 form-group">
-        <button *ngIf="produtosDtos.length > 0" type="submit" (click)="enviarCompraParaApi(formCadastraCompra,formProduto)" class="btn btn-primary">Salvar compra</button>
+        <button *ngIf="produtosDtos.length > 0" type="submit"
+          (click)="enviarCompraParaApi(formCadastraCompra,formProduto)" class="btn btn-primary">Salvar compra</button>
       </div>
 
     </div>

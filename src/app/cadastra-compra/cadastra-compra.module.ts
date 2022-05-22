@@ -6,6 +6,11 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MensagemModule } from 'src/app/componentes/mensagem/mensagem.module';
 import { AutoFocusDirective } from '../directives/auto-focus.directive';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatSelectFilterModule } from 'mat-select-filter';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+
 
 
 @NgModule({
@@ -16,7 +21,11 @@ import { AutoFocusDirective } from '../directives/auto-focus.directive';
     CommonModule,
     MenuLateralModule,
     FormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
     MensagemModule,
+    MatSelectFilterModule,
+    BrowserAnimationsModule,
     NgxMaskModule.forRoot()    
   ],
   exports:[CadastraCompraComponent]
