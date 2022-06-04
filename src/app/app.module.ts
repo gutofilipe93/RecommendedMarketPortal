@@ -9,18 +9,19 @@ import { AutenticacaoInterceptor } from './autenticacao/autenticacao.interceptor
 import { LoginModule } from './login/login.module';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { AuthGuard } from './guard/auth-guard.service';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AutoFocusDirective
+    AutoFocusDirective    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LoginModule,
-    HttpClientModule    
+    HttpClientModule ,
+    MatProgressSpinnerModule,  
   ],
   providers:[
     AuthGuard,

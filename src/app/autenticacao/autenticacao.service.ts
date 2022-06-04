@@ -3,6 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 const API = environment.apiURL;
 
@@ -20,12 +21,18 @@ export class AutenticacaoService {
       password: senha
     },
     { observe: 'body' }
-      )
+      )      
       .pipe(
         tap((res) => {
-          const authToken = res as any          
-          this.tokenService.salvarToken(authToken?.idToken);
-          this.tokenService.salvarRefreshToken(authToken?.refreshToken);
+          
+          const authToken = res as any 
+          if(authToken?.idToken)            
+            this.tokenService.salvarToken(authToken?.idToken);
+          else
+            Swal.fire('Usuário ou senha invalidos','Por favor tentar novamente!','error') 
+            
+          if(authToken?.refreshToken)         
+            this.tokenService.salvarRefreshToken(authToken?.refreshToken);
         })
       );    
   }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CadastraCompraComponent } from './cadastra-compra/cadastra-compra.component';
 import { AuthGuard } from './guard/auth-guard.service';
 import { LoginComponent } from './login/login.component';
+import { RecomendacaoMercadoComponent } from './recomendacao-mercado/recomendacao-mercado.component';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,10 @@ export const routes: Routes = [
     path: 'cadastra-compra',            
     component: CadastraCompraComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'recomendacao-mercado',            
+    component: RecomendacaoMercadoComponent    
   },
   ];
 

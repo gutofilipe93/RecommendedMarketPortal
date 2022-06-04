@@ -17,17 +17,26 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
             <li class="nav-item">
-              <a href="pages/widgets.html" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
+              <a (click)="irCompra()" style="cursor: pointer;" class="nav-link">
+                <i class="nav-icon fas fa-cart-plus"></i>
                 <p>
                   Compras
+                </p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a (click)="irRecomendacao()" style="cursor: pointer;" class="nav-link">
+                <i class="nav-icon fas fa-funnel-dollar"></i>
+                <p>
+                  Recomendações
                 </p>
               </a>
             </li>
 
             <li class="nav-item">
               <a (click)="logout()" style="cursor: pointer;" class="nav-link">
-                <i class="nav-icon fas fa-trash"></i>
+                <i class="nav-icon fas fa-power-off"></i>
                 <p>
                   Logout
                 </p>

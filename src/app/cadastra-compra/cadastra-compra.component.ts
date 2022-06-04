@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { AutenticacaoService } from '../autenticacao/autenticacao.service';
+import { LoadingService } from '../loading.service';
 import { CadastraCompraService } from './cadastra-compra.service';
 import { ProdutoDto, ProdutosDtos } from './produto-dto';
 
@@ -15,7 +16,7 @@ import { ProdutoDto, ProdutosDtos } from './produto-dto';
 export class CadastraCompraComponent implements OnInit {
   @ViewChild('produtoNome') searchElement!: ElementRef;
 
-  constructor(private cadastroCompraService: CadastraCompraService, private autenticacaoService : AutenticacaoService) { }
+  constructor(private cadastroCompraService: CadastraCompraService, private autenticacaoService : AutenticacaoService, private loader: LoadingService) { }
 
   mercado = "";
   dataCompra = "";
@@ -24,16 +25,17 @@ export class CadastraCompraComponent implements OnInit {
   flagValidaFormulario = false;
   selectedValue = "";
 
-  public variables = ['One','Two','County', 'Three', 'Zebra', 'XiOn'];  
+  
 
   nomesPesquisaveis$!: Observable<Array<string>>;
   public filteredList2: string[] = [];
   ngOnInit(): void {
+    this.loader.show();
     this.nomesPesquisaveis$ = this.cadastroCompraService.buscarNomesPesquisaveis();  
     this.nomesPesquisaveis$.subscribe((x) => {
       this.filteredList2 = x;
+      this.loader.hide();
     })
-    
   }
 
   adicionarCompraNaLista(formCadastraCompra: NgForm, formProduto: NgForm) {    
@@ -79,19 +81,21 @@ export class CadastraCompraComponent implements OnInit {
   }
 
   enviarCompraParaApi(formCadastraCompra: NgForm, formProduto: NgForm){
+    this.loader.show();
     this.cadastroCompraService.cadastrarCompra(this.produtosDtos).subscribe(() => {
       Swal.fire('Sucesso','Compra cadastrada','success');      
       formCadastraCompra.resetForm();
       formProduto.resetForm();
       this.produtosDtos = [];      
+      this.loader.hide();
     },(error) => {
       console.log(error)
       if(error.status == 401){        
         this.autenticacaoService.refreshToken().subscribe(); 
       }
       Swal.fire('Problema de autenticação','Por favor tentar novamente!','error')
-    });
-
+      this.loader.hide();
+    });    
     var teste = JSON.stringify(this.produtosDtos);
     console.log(teste)
   }

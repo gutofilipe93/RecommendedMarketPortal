@@ -19,4 +19,12 @@ export class MenuLateralComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  irCompra(){
+    this.router.navigate(['cadastra-compra']);
+  }
+
+  irRecomendacao(){
+    this.router.navigate(['recomendacao-mercado']);
+  }
+
 }

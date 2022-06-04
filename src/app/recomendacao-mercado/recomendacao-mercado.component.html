@@ -1,0 +1,83 @@
+<app-menu-lateral></app-menu-lateral>
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Recomendações</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Recomendações</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Informações sobre a compra</h3>
+                </div>
+                <div class="card-body row">
+                    <div class="col-md-9">
+                        <mat-form-field [style.width.%]="100">
+                            <mat-select multiple  [(ngModel)] ="produtos" name="nomeProdutoSelecionado" id="nomeProdutoSelecionado"  #nomeProdutoSelecionado="ngModel" 
+                              [disableOptionCentering]="true" #select1 placeholder="Nome de pesquisa">
+                              <mat-select-filter  [array]="nomesPesquisaveis$ | async" (filteredReturn)="filteredList =$event"></mat-select-filter>
+                              <mat-option *ngFor="let item of filteredList" [value]="item">
+                                {{item}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>                              
+                      </div>
+
+                      <div class="col-md-2 form-group">
+                        <button type="submit"
+                          (click)="buscarMelhorMercado()" class="btn btn-primary">Buscar</button>
+                      </div>  
+                </div>
+                
+                <div *ngIf="recomendacoes.market" class="row">
+                  <div class="col-md-4"> 
+                    <h2 style="margin-left: 21px">Mercado: {{recomendacoes.market}}</h2>
+                  </div>                                     
+                </div>
+                <br>
+                <div *ngIf="recomendacoes.items.length > 0" class="card-body table-responsive p-0" style="height: 300px;">
+                  <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                      <tr>
+                        <th>Produto</th>
+                        <th style="cursor: pointer;" (click)="ordenarTable('preco')">Preço</th>
+                        <th>Data Ult. Compra</th>
+                        <th style="cursor: pointer;" (click)="ordenarTable('mercado')">Mercado</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let reco of recomendacoes.items">
+                      <tr>
+                        <td>{{reco.name}}</td>
+                        <td>{{reco.price}}</td>
+                        <td>{{reco.dateLastPurchase}}</td>
+                        <td>{{reco.market}}</td>                        
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+                <br>
+                <div *ngIf="recomendacoes.message" class="row">
+                  <div class="col-md-12"> 
+                    <h4 style="margin-left: 21px">Descricao: {{recomendacoes.message}}</h4>
+                  </div>                                     
+                </div>                
+            </div>
+        </div>
+    </section>
+</div>

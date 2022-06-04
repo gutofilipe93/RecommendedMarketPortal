@@ -6,6 +6,7 @@ import { MensagemModule } from '../componentes/mensagem/mensagem.module';
 import { Router, RouterModule } from '@angular/router';
 
 import { CadastraCompraModule } from '../cadastra-compra/cadastra-compra.module';
+import { RecomendacaoMercadoModule } from '../recomendacao-mercado/recomendacao-mercado.module';
 
 
 
@@ -18,7 +19,8 @@ import { CadastraCompraModule } from '../cadastra-compra/cadastra-compra.module'
     FormsModule,
     MensagemModule,
     RouterModule, 
-    CadastraCompraModule
+    CadastraCompraModule,
+    RecomendacaoMercadoModule
   ],
   exports: [LoginComponent]
 })

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AutenticacaoService } from '../autenticacao/autenticacao.service';
 import { TokenService } from '../autenticacao/token.service';
+import { LoadingService } from '../loading.service';
+
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,7 @@ import { TokenService } from '../autenticacao/token.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AutenticacaoService, private router: Router, private tokenService: TokenService) {
+  constructor(private authService: AutenticacaoService, private router: Router, private tokenService: TokenService, private loader: LoadingService) {
     if(this.tokenService.possuiToken())
       this.router.navigate(['cadastra-compra']);
   }
@@ -20,14 +22,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   logar(){    
+    this.loader.show()
     this.authService.autenticar(this.login.usuario,this.login.senha).subscribe(
       () => {
+        this.loader.hide();
         this.router.navigate(['cadastra-compra']);
       },
       (error) => {
-        alert("Usuário ou senha invalidos");        
+        console.log('caiu')               
       }
-    );
+    );    
   }
 
 }
