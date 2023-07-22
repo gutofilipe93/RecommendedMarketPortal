@@ -23,12 +23,13 @@ export class RecomendacaoMercadoComponent implements OnInit {
   recomendacoes: RecomendacaoMercado = this.newRecomendacao();
 
   filteredList: Array<string> = [];
-
+  filtered:Array<string> = [];
   ngOnInit(): void {
     this.loader.show()
     this.nomesPesquisaveis$ = this.cadastroCompraService.buscarNomesPesquisaveis();
     this.nomesPesquisaveis$.subscribe((x) => {
       this.filteredList = x;
+      this.filtered = x;
       this.loader.hide();
     });    
   }
@@ -66,6 +67,8 @@ export class RecomendacaoMercadoComponent implements OnInit {
       });
     }        
   }
+
+
 
   private newRecomendacao(): RecomendacaoMercado {
     let recomendacao: RecomendacaoMercado = {

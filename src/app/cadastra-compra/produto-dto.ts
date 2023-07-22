@@ -7,6 +7,7 @@ export interface ProdutoDto {
     dataCompra:string;
     cpf: string;
     flagTemOferta: boolean;
+    precoTotal: number
 }
 
 export type ProdutosDtos = Array<ProdutoDto>;

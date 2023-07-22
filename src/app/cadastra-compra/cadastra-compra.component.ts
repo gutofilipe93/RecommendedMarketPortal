@@ -75,7 +75,8 @@ export class CadastraCompraComponent implements OnInit {
       mercado: '',
       dataCompra: '',
       cpf: '',
-      flagTemOferta: false
+      flagTemOferta: false,
+      precoTotal: 0
     }
     return produtoDto;
   }

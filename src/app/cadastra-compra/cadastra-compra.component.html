@@ -62,7 +62,7 @@
 
             <div class="col-md-2 form-group">
 
-              <label for="lbPrecoProduto">Preço*</label>
+              <label for="lbPrecoProduto">Preço Unt*</label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">R$</span>
@@ -76,8 +76,24 @@
                 mensagem="Preço deve ser maior que zero"></app-mensagem>
             </div>
 
-            <div class="col-md-2" style="margin-top:20px ; margin-left:13px">
-              <mat-form-field>
+            <div class="col-md-2 form-group">
+
+              <label for="lbPrecoProduto">Preço total*</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">R$</span>
+                </div>
+                <input type="number" class="form-control" id="precoTotalProduto" min="0" name="precoTotalProduto" required
+                  [(ngModel)]="produtoDto.precoTotal" #precoTotalProduto="ngModel">
+              </div>
+              <app-mensagem *ngIf="((precoTotalProduto.invalid && precoTotalProduto.touched) || flagValidaFormulario) "
+                mensagem="Preço  é obrigatorio"></app-mensagem>
+              <app-mensagem *ngIf="((produtoDto.precoTotal <= 0 && precoTotalProduto.touched) || flagValidaFormulario)"
+                mensagem="Preço deve ser maior que zero"></app-mensagem>
+            </div>
+
+            <div class="col-md-2" style="margin-top:20px ;">
+              <mat-form-field  [style.width.%]="100">
                 <mat-select [(ngModel)] ="produtoDto.nomePesquisa" name="nomeProdutoSelecionado" id="nomeProdutoSelecionado"  #nomeProdutoSelecionado="ngModel" [disableOptionCentering]="true" #select1 placeholder="Nome de pesquisa">
                   <mat-select-filter  [array]="nomesPesquisaveis$ | async" (filteredReturn)="filteredList2 =$event"></mat-select-filter>
                   <mat-option *ngFor="let item of filteredList2" [value]="item">
@@ -91,7 +107,7 @@
             </div>         
 
 
-            <div class="col-md-2 form-check" style="margin-left: -28px;">
+            <div class="col-md-2 form-check" style="margin-left: 28px;">
               <br>
               <br>
               <input type="checkbox" class="form-check-input" id="teveDesconto" [(ngModel)]="produtoDto.flagTemOferta"
@@ -101,7 +117,7 @@
 
             <div class="col-md-2 form-group">
               <button type="submit" (click)="adicionarCompraNaLista(formCadastraCompra,formProduto)"
-                class="btn btn-primary" style="margin-top:30px ; margin-left: -69px">Adicionar na lista</button>
+                class="btn btn-primary">Adicionar na lista</button>
             </div>
 
           </div>

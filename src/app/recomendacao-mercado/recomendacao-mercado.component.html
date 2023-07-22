@@ -17,7 +17,6 @@
         </div>
       </section>
     
-
     <section class="content">
         <div class="container-fluid">
             <div class="card card-primary">
@@ -28,9 +27,8 @@
                     <div class="col-md-9">
                         <mat-form-field [style.width.%]="100">
                             <mat-select multiple  [(ngModel)] ="produtos" name="nomeProdutoSelecionado" id="nomeProdutoSelecionado"  #nomeProdutoSelecionado="ngModel" 
-                              [disableOptionCentering]="true" #select1 placeholder="Nome de pesquisa">
-                              <mat-select-filter  [array]="nomesPesquisaveis$ | async" (filteredReturn)="filteredList =$event"></mat-select-filter>
-                              <mat-option *ngFor="let item of filteredList" [value]="item">
+                              [disableOptionCentering]="true"  #select1 placeholder="Nome de pesquisa" >                              
+                              <mat-option *ngFor="let item of nomesPesquisaveis$ | async" [value]="item">
                                 {{item}}
                               </mat-option>
                             </mat-select>
